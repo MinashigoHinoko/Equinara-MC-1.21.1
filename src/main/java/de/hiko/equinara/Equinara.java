@@ -1,5 +1,7 @@
 package de.hiko.equinara;
 
+import de.hiko.equinara.item.ModItems;
+import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -33,6 +35,9 @@ public class Equinara {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+
+        ModItems.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
@@ -45,6 +50,13 @@ public class Equinara {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS){
+            event.accept(ModItems.UMBRIUM);
+            event.accept(ModItems.RAW_UMBRIUM);
+            event.accept(ModItems.DUALIUM);
+            event.accept(ModItems.LUXIUM);
+            event.accept(ModItems.RAW_LUXIUM);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
